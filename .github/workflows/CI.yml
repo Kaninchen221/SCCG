@@ -25,4 +25,4 @@ jobs:
         python3 setup.py
     - name: Test with pytest
       run: |
-        pytest
+        .venv/Scripts/python.exe -m pytest
