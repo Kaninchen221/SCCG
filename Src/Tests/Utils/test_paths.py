@@ -83,7 +83,7 @@ class TestUtilities:
         if platform_info.is_windows():
             expected = paths.find_venv_lib_path() / "site-packages"
         elif platform_info.is_linux():
-            expected = paths.find_venv_lib_path() / "site-packages"
+            expected = paths.find_venv_lib_path() / "python3.10" / "site-packages"
         else:
             raise Exception("Not supported os")
 
