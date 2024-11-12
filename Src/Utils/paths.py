@@ -71,7 +71,7 @@ def find_venv_lib_path():
     if platform.system() == "Windows":
         pip_path = find_venv_path() / "Lib"
     elif platform.system() == "Linux":
-        pip_path = find_venv_path() / "Lib"
+        pip_path = find_venv_path() / "lib"
     else:
         raise Exception("Not supported os")
     return pip_path

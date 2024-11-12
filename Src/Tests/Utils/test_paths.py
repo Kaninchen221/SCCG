@@ -70,7 +70,7 @@ class TestUtilities:
         if platform_info.is_windows():
             expected = paths.find_venv_path() / "Lib"
         elif platform_info.is_linux():
-            expected = paths.find_venv_path() / "Lib"
+            expected = paths.find_venv_path() / "lib"
         else:
             raise Exception("Not supported os")
 
