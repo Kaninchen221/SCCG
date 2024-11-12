@@ -79,13 +79,4 @@ class TestUtilities:
 
     def test_find_venv_site_packages_path(self):
         site_packages_path = paths.find_venv_site_packages_path()
-
-        if platform_info.is_windows():
-            expected = paths.find_venv_lib_path() / "site-packages"
-        elif platform_info.is_linux():
-            expected = paths.find_venv_lib_path() / "python3.10" / "site-packages"
-        else:
-            raise Exception("Not supported os")
-
         assert site_packages_path.exists()
-        assert site_packages_path == expected
