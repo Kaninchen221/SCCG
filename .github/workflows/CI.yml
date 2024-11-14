@@ -24,7 +24,7 @@ jobs:
         with:
           python-version: "3.11.4"
       - name: Setup
-      - run: python3 setup.py
+        run: python3 setup.py
       - name: Test with pytest
-      - run: .venv/Scripts/python.exe -m pytest
+        run: .venv/Scripts/python.exe -m pytest
   
