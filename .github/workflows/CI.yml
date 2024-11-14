@@ -16,6 +16,12 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
+        python_path: [.venv/bin/python, .venv/Scripts/python.exe]
+        include:
+          - os: ubuntu-latest
+            python_path: .venv/bin/python
+          - os: windows-latest
+            python_path: .venv/Scripts/python.exe
     
     steps:
       - uses: actions/checkout@v4
@@ -26,5 +32,5 @@ jobs:
       - name: Setup
         run: python3 setup.py
       - name: Test with pytest
-        run: .venv/Scripts/python.exe -m pytest
+        run: ${{ matrix.python_path }} -m pytest
   
