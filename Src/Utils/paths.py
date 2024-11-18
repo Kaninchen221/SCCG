@@ -29,52 +29,52 @@ def find_venv_path():
 
 def find_venv_scripts_path():
     if platform.system() == "Windows":
-        scripts_folder = find_venv_path() / "Scripts"
+        path = find_venv_path() / "Scripts"
     elif platform.system() == "Linux":
-        scripts_folder = find_venv_path() / "bin"
+        path = find_venv_path() / "bin"
     else:
         raise Exception("Not supported os")
-    return scripts_folder
+    return path
 
 
 def find_venv_activate_path():
     if platform.system() == "Windows":
-        activate_path = find_venv_scripts_path() / "activate.bat"
+        path = find_venv_scripts_path() / "activate.bat"
     elif platform.system() == "Linux":
-        activate_path = find_venv_scripts_path() / "activate"
+        path = find_venv_scripts_path() / "activate"
     else:
         raise Exception("Not supported os")
-    return activate_path
+    return path
 
 
 def find_venv_python_path():
     if platform.system() == "Windows":
-        python_path = find_venv_scripts_path() / "python.exe"
+        path = find_venv_scripts_path() / "python.exe"
     elif platform.system() == "Linux":
-        python_path = find_venv_scripts_path() / "python3"
+        path = find_venv_scripts_path() / "python3"
     else:
         raise Exception("Not supported os")
-    return python_path
+    return path
 
 
 def find_venv_pip_path():
     if platform.system() == "Windows":
-        pip_path = find_venv_scripts_path() / "pip.exe"
+        path = find_venv_scripts_path() / "pip.exe"
     elif platform.system() == "Linux":
-        pip_path = find_venv_scripts_path() / "pip3"
+        path = find_venv_scripts_path() / "pip3"
     else:
         raise Exception("Not supported os")
-    return pip_path
+    return path
 
 
 def find_venv_lib_path():
     if platform.system() == "Windows":
-        pip_path = find_venv_path() / "Lib"
+        path = find_venv_path() / "Lib"
     elif platform.system() == "Linux":
-        pip_path = find_venv_path() / "lib"
+        path = find_venv_path() / "lib"
     else:
         raise Exception("Not supported os")
-    return pip_path
+    return path
 
 
 def find_venv_site_packages_path():
@@ -84,3 +84,13 @@ def find_venv_site_packages_path():
             if path.name == "site-packages":
                 return path
     raise Exception("Can't find site-packages path")
+
+
+def find_venv_pyinstaller_path():
+    if platform.system() == "Windows":
+        path = find_venv_scripts_path() / "pyinstaller.exe"
+    elif platform.system() == "Linux":
+        path = find_venv_scripts_path() / "pyinstaller"
+    else:
+        raise Exception("Not supported os")
+    return path

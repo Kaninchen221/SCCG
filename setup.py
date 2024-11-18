@@ -9,7 +9,7 @@ logger = logging.getLogger(logger_handle)
 logger.setLevel(logging.INFO)
 
 
-def createVenv():
+def create_venv():
     logger.info('Create VENV')
     venvBuilder = EnvBuilder(False, True, False, False, True)
     venvBuilder.create(".venv")
@@ -40,7 +40,7 @@ def install_requirements():
 
 
 logger.info('Start')
-createVenv()
+create_venv()
 create_pth_file()
 install_requirements()
 logger.info('Completed')

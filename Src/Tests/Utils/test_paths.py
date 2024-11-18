@@ -80,3 +80,16 @@ class TestUtilities:
     def test_find_venv_site_packages_path(self):
         site_packages_path = paths.find_venv_site_packages_path()
         assert site_packages_path.exists()
+
+    def test_find_venv_pyinstaller_path(self):
+        path = paths.find_venv_pyinstaller_path()
+
+        if platform_info.is_windows():
+            expected = paths.find_venv_scripts_path() / "pyinstaller.exe"
+        elif platform_info.is_linux():
+            expected = paths.find_venv_scripts_path() / "pyinstaller"
+        else:
+            raise Exception("Not supported os")
+
+        assert path.exists()
+        assert path == expected
