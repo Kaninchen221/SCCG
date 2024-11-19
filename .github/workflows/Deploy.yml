@@ -16,4 +16,4 @@ jobs:
       env:
         GH_TOKEN: ${{ github.token }}
         GH_REPO: ${{ github.repository }}
-      run: gh release upload deploy/dist/SCCG.exe --clobber
+      run: gh release upload v0.0.1 deploy/dist/SCCG.exe --clobber
