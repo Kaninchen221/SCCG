@@ -39,7 +39,12 @@ jobs:
     #needs: [release, build]
     runs-on: windows-latest
     steps:
-    - name: Publish Release
+    - name: Create Tag
+      env:
+        GH_TOKEN: ${{ github.token }}
+        GH_REPO: ${{ github.repository }}
+      run: gh release create v0.0.1
+    - name: Upload Release
       env:
         GH_TOKEN: ${{ github.token }}
         GH_REPO: ${{ github.repository }}
