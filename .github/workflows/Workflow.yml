@@ -10,7 +10,7 @@ permissions:
     contents: write
     
 jobs:
-  build:
+  build-test-deploy:
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -29,35 +29,21 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.11.4"
-      - name: Setup
+      
+      - name: Setup Project
         run: python3 setup.py
-      - name: Test with pytest
+        
+      - name: Pytest
         run: ${{ matrix.python_path }} -m pytest
-  
-  deploy:
-    name: Deploy
-    runs-on: ${{ matrix.os }}
-    needs: build
-    
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest]
-        python_path: [.venv/bin/python, .venv/Scripts/python.exe]
-        exclude:
-          - os: ubuntu-latest
-            python_path: .venv/Scripts/python.exe
-          - os: windows-latest
-            python_path: .venv/bin/python
-            
-    steps:
-    - uses: actions/checkout@v3
-    - name: Create Tag
-      env:
-        GH_TOKEN: ${{ github.token }}
-        GH_REPO: ${{ github.repository }}
-      run: gh release create v0.0.1
-    - name: Upload Release
-      env:
-        GH_TOKEN: ${{ github.token }}
-        GH_REPO: ${{ github.repository }}
-      run: gh release upload v0.0.1 ./deploy/dist/SCCG.exe --clobber
+        
+      - name: Create Tag
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: gh release create v0.0.1
+        
+      - name: Upload Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: gh release upload v0.0.1 ./deploy/dist/SCCG.exe --clobber
