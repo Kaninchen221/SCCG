@@ -1,0 +1,19 @@
+name: Deploy
+
+on:
+  workflow_run:
+    workflows: ["CI"]
+    types:
+      - completed
+
+jobs:
+  publish:
+    name: Publish Release
+    #needs: [release, build]
+    runs-on: windows-latest
+    steps:
+    - name: Publish Release
+      env:
+        GH_TOKEN: ${{ github.token }}
+        GH_REPO: ${{ github.repository }}
+      run: gh release upload deploy/dist/SCCG.exe --clobber
