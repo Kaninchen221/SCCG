@@ -36,6 +36,9 @@ jobs:
       - name: Pytest
         run: ${{ matrix.python_path }} -m pytest
         
+      - name: Deploy
+        run: ${{ matrix.python_path }} ./build.py
+        
       - name: Upload Release
         env:
           GH_TOKEN: ${{ github.token }}
