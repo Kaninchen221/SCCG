@@ -20,10 +20,10 @@ jobs:
         include:
           - os: ubuntu-latest
             python_path: .venv/bin/python
-            SCCG_path: ./deploy/dist/SCCG
+            SCCG_deploy_path: ./deploy/dist/SCCG
           - os: windows-latest
             python_path: .venv/Scripts/python.exe
-            SCCG_path: ./deploy/dist/SCCG.exe
+            SCCG_deploy_path: ./deploy/dist/SCCG.exe
     
     steps:
       - uses: actions/checkout@v4
@@ -45,4 +45,4 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
-        run: gh release upload v0.0.1 ./deploy/dist/SCCG.exe --clobber
+        run: gh release upload v0.0.1 ${{ matrix.SCCG_deploy_path }} --clobber
