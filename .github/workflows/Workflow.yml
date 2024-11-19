@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 permissions:
-    contents: read
+    contents: write
     
 jobs:
   build:
@@ -36,9 +36,9 @@ jobs:
   
   deploy:
     name: Deploy
-    #needs: [release, build]
-    runs-on: windows-latest
+    runs-on: ${{ matrix.os }}
     needs: build
+    
     steps:
     - uses: actions/checkout@v3
     - name: Create Tag
