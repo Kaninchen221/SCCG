@@ -16,12 +16,14 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
-        python_path: [.venv/bin/python, .venv/Scripts/python.exe]
-        exclude:
+        #python_path: [.venv/bin/python, .venv/Scripts/python.exe]
+        include:
           - os: ubuntu-latest
             python_path: .venv/Scripts/python.exe
+            SCCG_path: ./deploy/dist/SCCG
           - os: windows-latest
             python_path: .venv/bin/python
+            SCCG_path: ./deploy/dist/SCCG.exe
     
     steps:
       - uses: actions/checkout@v4
