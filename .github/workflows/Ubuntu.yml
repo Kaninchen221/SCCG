@@ -16,5 +16,5 @@ jobs:
       os: ubuntu-latest
       name: Ubuntu_Latest
       pretty_name: Ubuntu Latest
-      python_path: .venv/Scripts/python.exe
-      SCCG_deploy_path: ./deploy/dist/SCCG.exe
+      python_path: .venv/bin/python
+      SCCG_deploy_path: ./deploy/dist/SCCG
