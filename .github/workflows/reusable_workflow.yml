@@ -48,6 +48,6 @@ jobs:
         
       - name: Upload Release
         env:
-          GH_TOKEN: ${{ secrets.token }}
-          GH_REPO: ${{ secrets.repository }}
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
         run: gh release upload v0.0.1 ${{ inputs.SCCG_deploy_path }} --clobber
