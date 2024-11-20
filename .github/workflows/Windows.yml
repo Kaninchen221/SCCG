@@ -18,6 +18,3 @@ jobs:
       pretty_name: Windows Latest
       python_path: .venv/Scripts/python.exe
       SCCG_deploy_path: ./deploy/dist/SCCG.exe
-    secrets:
-      token: ${{ github.token }}
-      repository: ${{ github.repository }}
