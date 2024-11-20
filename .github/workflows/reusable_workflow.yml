@@ -1,0 +1,53 @@
+name: Reusable Workflow
+
+on:
+  workflow_call:
+    inputs:
+      os:
+        required: true
+        type: string
+      pretty_name:
+        required: true
+        type: string
+      name:
+        required: true
+        type: string
+      python_path:
+        required: true
+        type: string
+      SCCG_deploy_path:
+        required: true
+        type: string
+        
+    secrets:
+      repository:
+        required: true
+      token:
+        required: true
+
+jobs:
+  build-test-deploy:
+    runs-on: ${{ inputs.os }}
+    name: ${{ inputs.name }}
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python 3.11.4
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11.4"
+      
+      - name: Setup Project
+        run: python3 setup.py
+        
+      - name: Pytest
+        run: ${{ inputs.python_path }} -m pytest
+        
+      - name: Deploy
+        run: ${{ inputs.python_path }} ./build.py
+        
+      - name: Upload Release
+        env:
+          GH_TOKEN: ${{ secrets.token }}
+          GH_REPO: ${{ secrets.repository }}
+        run: gh release upload v0.0.1 ${{ inputs.SCCG_deploy_path }} --clobber
