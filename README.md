@@ -1,4 +1,4 @@
 # SCCG
-![Windows Badge](https://byob.yarr.is/Kaninchen221/SCCG/Windows_Latest)
-![Ubuntu Badge](https://byob.yarr.is/Kaninchen221/SCCG/Ubuntu_Latest)  
+![Windows Badge](https://github.com/Kaninchen221/SCCG/actions/workflows/Windows.yml/badge.svg)
+![Ubuntu Badge](https://github.com/Kaninchen221/SCCG/actions/workflows/Ubuntu.yml/badge.svg)  
 Standalone Cpp Code Generator
