@@ -50,13 +50,3 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: gh release upload v0.0.1 ${{ matrix.SCCG_deploy_path }} --clobber
-
-      - name: Badge
-        if: always()
-        uses: RubbaBoy/BYOB@v1.3.0
-        with:
-          NAME: ${{ matrix.name }}
-          LABEL: ${{ matrix.pretty_name }}
-          STATUS: ${{ job.status }}
-          COLOR: Yellow
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
