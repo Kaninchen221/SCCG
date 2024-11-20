@@ -7,20 +7,25 @@ on:
     branches: [ master ]
 
 permissions:
-    contents: write
+    contents: read
     
 jobs:
   build-test-deploy:
     runs-on: ${{ matrix.os }}
+    name: ${{ matrix.name }}
 
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
         include:
           - os: ubuntu-latest
+            pretty_name: Ubuntu Latest
+            name: Ubuntu_Latest
             python_path: .venv/bin/python
             SCCG_deploy_path: ./deploy/dist/SCCG
           - os: windows-latest
+            pretty_name: Windows Latest
+            name: Windows_Latest
             python_path: .venv/Scripts/python.exe
             SCCG_deploy_path: ./deploy/dist/SCCG.exe
     
@@ -45,3 +50,13 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: gh release upload v0.0.1 ${{ matrix.SCCG_deploy_path }} --clobber
+
+      - name: Badge
+        if: always()
+        uses: RubbaBoy/BYOB@v1.3.0
+        with:
+          NAME: ${{ matrix.name }}
+          LABEL: ${{ matrix.pretty_name }}
+          STATUS: ${{ success() }}
+          COLOR: Yellow
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
