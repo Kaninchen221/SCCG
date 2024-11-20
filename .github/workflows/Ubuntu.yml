@@ -1,0 +1,20 @@
+name: Workflow Ubuntu
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+permissions:
+    contents: write
+
+jobs:
+  call-reusable-workflow:
+    uses: ./.github/workflows/reusable_workflow.yml
+    with:
+      os: ubuntu-latest
+      name: Ubuntu_Latest
+      pretty_name: Ubuntu Latest
+      python_path: .venv/Scripts/python.exe
+      SCCG_deploy_path: ./deploy/dist/SCCG.exe
