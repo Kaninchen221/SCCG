@@ -1,0 +1,23 @@
+name: Workflow Windows
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+permissions:
+    contents: write
+
+jobs:
+  call-reusable-workflow:
+    uses: ./.github/workflows/reusable_workflow.yml
+    with:
+      os: windows-latest
+      name: Windows_Latest
+      pretty_name: Windows Latest
+      python_path: .venv/Scripts/python.exe
+      SCCG_deploy_path: ./deploy/dist/SCCG.exe
+    secrets:
+      token: ${{ github.token }}
+      repository: ${{ github.repository }}
