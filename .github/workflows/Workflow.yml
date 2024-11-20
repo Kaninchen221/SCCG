@@ -57,6 +57,6 @@ jobs:
         with:
           NAME: ${{ matrix.name }}
           LABEL: ${{ matrix.pretty_name }}
-          STATUS: ${{ success() }}
+          STATUS: ${{ job.status }}
           COLOR: Yellow
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
