@@ -18,12 +18,6 @@ on:
       SCCG_deploy_path:
         required: true
         type: string
-        
-    secrets:
-      repository:
-        required: true
-      token:
-        required: true
 
 jobs:
   build-test-deploy:
