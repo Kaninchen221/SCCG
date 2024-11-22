@@ -2,3 +2,6 @@ clang==16.0.1.1
 pytest==7.2.0
 pytest-mock==3.10.0
 pyinstaller==6.11.1
+glfw==2.7.0
+imgui[glfw]==2.0.0
+numpy==2.1.3
