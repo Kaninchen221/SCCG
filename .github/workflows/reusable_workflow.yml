@@ -20,7 +20,7 @@ on:
         type: string
 
 jobs:
-  build-test-deploy:
+  build_test_deploy_upload:
     runs-on: ${{ inputs.os }}
     name: ${{ inputs.name }}
 
@@ -38,7 +38,7 @@ jobs:
         run: ${{ inputs.python_path }} -m pytest
         
       - name: Deploy
-        run: ${{ inputs.python_path }} ./build.py
+        run: ${{ inputs.python_path }} ./deploy.py
         
       - name: Upload Release
         env:

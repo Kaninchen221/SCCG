@@ -15,8 +15,9 @@ def create_exe():
     dist_arg = f"--distpath {root_path / 'deploy/dist'}"
     work_arg = f"--workpath {root_path / 'deploy/temp'}"
     SCCG_path = root_path / "Src/SCCG/__main__.py"
+    additional_binaries = "--collect-binaries glfw"
 
-    arguments = f"{SCCG_path} --clean --onefile --name SCCG {dist_arg} {work_arg}"
+    arguments = f"{SCCG_path} --clean --onefile --name SCCG {dist_arg} {work_arg} {additional_binaries}"
     process = run_subprocess(find_venv_pyinstaller_path(), arguments)
     log_subprocess(process, logger)
 
