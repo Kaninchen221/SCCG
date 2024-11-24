@@ -24,7 +24,7 @@ class Application:
         glfw.terminate()
 
     def _process_imgui(self):
-        self.imgui_context.imgui_glfw_renderer.process_inputs()
+        self.imgui_context.glfw_renderer.process_inputs()
 
         imgui.new_frame()
 
@@ -35,14 +35,18 @@ class Application:
 
         imgui_draw_data = imgui.get_draw_data()
         if imgui_draw_data:
-            self.imgui_context.imgui_glfw_renderer.render(imgui.get_draw_data())
+            self.imgui_context.glfw_renderer.render(imgui.get_draw_data())
 
-    def init(self):
-        if not self.window.init():
-            return False
+    def init(self, init_window: bool = True):
+        if init_window:
+            if not self.window.init():
+                return False
 
-        self.imgui_context.init(self.window)
+        if init_window:
+            self.imgui_context.init(self.window)
+        else:
+            self.imgui_context.init(None)
 
-        self.imgui_root_window.init(self.imgui_context.imgui_io, self.window)
+        self.imgui_root_window.init(self.imgui_context.io, self.window)
 
         return True

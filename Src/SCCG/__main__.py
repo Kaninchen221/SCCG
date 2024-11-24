@@ -14,7 +14,7 @@ if __name__ == '__main__':
 
     logger.info("Start SCCG")
     try:
-        application.init()
+        application.init(True)
         application.start()
     except Exception as exception:
         print(exception.args)

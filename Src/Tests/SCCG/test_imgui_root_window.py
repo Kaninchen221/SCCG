@@ -18,15 +18,14 @@ def test_properties():
 
 def test_process_imgui():
     window = Window()
-    window.init()
 
     imgui_context = ImguiContext()
-    imgui_context.init(window)
+    imgui_context.init(None)
 
     imgui.new_frame()
 
     imgui_root_window = ImguiRootWindow()
-    imgui_root_window.init(imgui_context.imgui_io, window)
+    imgui_root_window.init(imgui_context.io, window)
     imgui_root_window.process_imgui()
 
     imgui.render()
