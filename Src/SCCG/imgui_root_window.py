@@ -45,6 +45,6 @@ class ImguiRootWindow:
             self.skip_frames_window_moving -= 1
 
         if imgui.button("Close"):
-            glfw.set_window_should_close(self.window, True)
+            glfw.set_window_should_close(self.window.internal_window, True)
 
         imgui.end()
