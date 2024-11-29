@@ -15,13 +15,20 @@ class Parser:
     def tokenization(text):
         result = []
         token = ""
+        is_in_string_literal = False
+
         for char in text:
             match char:
+                
                 # Found a separator
                 case ' ':
-                    if Parser.is_token_valid(token):
-                        result.append(token)
-                    token = ""
+                    if is_in_string_literal:
+                        token += char
+                    else:
+                        if Parser.is_token_valid(token):
+                            result.append(token)
+                        token = ""
+
                 # Found a new line
                 case '\n':
                     if Parser.is_token_valid(token):
@@ -29,6 +36,7 @@ class Parser:
                     if token != '\n':
                         result.append('\n')
                     token = ""
+
                 # Found a comment
                 case ';':
                     if Parser.is_token_valid(token):
@@ -36,12 +44,16 @@ class Parser:
                     token = ";"
                     result.append(token)
                     token = ""
+
                 # Start/End of a string
                 case '"':
+                    is_in_string_literal = not is_in_string_literal
+
                     if Parser.is_token_valid(token):
                         result.append(token)
                     token = ""
                     result.append('"')
+
                 # Default
                 case _:
                     token += char

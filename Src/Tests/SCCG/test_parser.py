@@ -28,7 +28,7 @@ def test_tokenization_multi_line():
     expected = ["var", "integer", "=", "50", ";", "comment", "\n",
                 "var", "floating", "=", "3.14", ";", "comment2", "\n",
                 ";", "line", "with", "only", "comment", "\n",
-                "var", "string", "=", "\"", "String", "Constant", "\"", ";", "comment", "3"]
+                "var", "string", "=", "\"", "String Constant", "\"", ";", "comment", "3"]
 
     assert tokens == expected
 
@@ -58,7 +58,7 @@ def test_get_abstract_syntax_tree_multi_line():
     assert len(ast.children[1].children) == 3
 
     # Test string expression
-    assert ''.join(ast.children[3].children[1].tokens) == "=\"StringConstant\""
+    assert ''.join(ast.children[3].children[1].tokens) == "=\"String Constant\""
 
-    #print()
-    #Parser.print_abstract_syntax_tree(ast)
+    print()
+    Parser.print_abstract_syntax_tree(ast)
