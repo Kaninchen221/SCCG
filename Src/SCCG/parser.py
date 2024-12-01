@@ -95,7 +95,8 @@ class Parser:
 
         current_statement = first_line_statement
 
-        for index in range(0, len(tokens)):
+        index = 0
+        while index < len(tokens):
             token = tokens[index]
             match token:
 
@@ -104,27 +105,17 @@ class Parser:
                     statement = Statement()
                     statement.parent = current_statement
                     statement.type = StatementType.VarDeclaration
-                    statement.tokens = [token, tokens[index + 1]]
+                    statement.token = token
                     current_statement.children.append(statement)
-                    index += 1
 
                 # Is an assign expression
                 case "=":
                     statement = Statement()
                     statement.parent = current_statement
                     statement.type = StatementType.Expression
-
-                    if tokens[index + 1] == '\"':
-                        end_of_string_expression = find_next_occurrence(tokens, "\"", index + 2, None)
-                        if end_of_string_expression:
-                            statement.tokens = tokens[index:end_of_string_expression+1]
-                        else:
-                            raise Exception("Close the string expression")
-                    else:
-                        statement.tokens = tokens[index:index+2]
+                    statement.token = token
 
                     current_statement.children.append(statement)
-                    index += 1
 
                 # Is a comment
                 case ";":
@@ -133,8 +124,9 @@ class Parser:
                     statement.type = StatementType.Comment
 
                     end_line_position = find_next_occurrence(tokens, '\n', index + 1, len(tokens))
-                    statement.tokens = tokens[index:end_line_position]
-                    index = end_line_position
+                    statement.token = " ".join(tokens[index:end_line_position])
+
+                    index = end_line_position - 1
 
                     current_statement.children.append(statement)
 
@@ -147,15 +139,34 @@ class Parser:
                     current_statement.children.append(new_line_statement)
                     current_statement = new_line_statement
 
+                # String constant
+                case "\"":
+                    string_statement = Statement()
+                    string_statement.parent = current_statement
+                    string_statement.type = StatementType.StringConstant
+                    end_of_string_expression = find_next_occurrence(tokens, "\"", index + 1, None)
+                    if end_of_string_expression:
+                        string_statement.token = tokens[index+1]
+                        index = end_of_string_expression
+                        current_statement.children.append(string_statement)
+                    else:
+                        raise Exception("Close the string expression")
+
+                # Identifier
+                case _:
+                    if token == ' ' or token == '':
+                        index += 1
+                        continue
+
+                    statement = Statement()
+                    statement.parent = current_statement
+                    statement.token = token
+                    if token.isdigit():
+                        statement.type = StatementType.NumberConstant
+                    else:
+                        statement.type = StatementType.Identifier
+                    current_statement.children.append(statement)
+
+            index += 1
+
         return root_statement
-
-    @staticmethod
-    def print_abstract_syntax_tree(ast):
-        Parser.print_abstract_syntax_tree_internal(ast)
-
-    @staticmethod
-    def print_abstract_syntax_tree_internal(statement, spacing=""):
-        print(spacing, statement)
-        for child in statement.children:
-            Parser.print_abstract_syntax_tree_internal(child, spacing + "\t")
-

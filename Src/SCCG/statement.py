@@ -6,20 +6,31 @@ class StatementType(Enum):
     Line = 1,
     VarDeclaration = 2,
     Expression = 3,
-    Comment = 5,
-    Invalid = 6
+    Identifier = 4,
+    StringConstant = 5,
+    NumberConstant = 6,
+    Comment = 7,
+    Invalid = 8
 
 
 class Statement:
 
     def __init__(self):
         self.type = StatementType.Invalid
-        self.tokens = []
+        self.token = ""
         self.parent = None
         self.children = []
 
     def __str__(self):
-        if self.tokens:
-            return f"{self.type.name} : {self.tokens}"
-        else:
-            return f"{self.type.name}"
+        return Statement._to_string_internal(self)
+
+    @staticmethod
+    def _to_string_internal(statement, spacing=""):
+        result = f"{spacing}{statement.type.name}"
+        if statement.token:
+            result += f" : {statement.token}"
+        result += '\n'
+
+        for child in statement.children:
+            result += Statement._to_string_internal(child, spacing + "\t")
+        return result

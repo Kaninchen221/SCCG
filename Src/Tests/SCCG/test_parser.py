@@ -14,7 +14,7 @@ def get_multi_line():
 
 def test_tokenization_one_line():
     tokens = Parser.tokenization(get_one_line())
-    #Parser.print_tokens(tokens)
+    # Parser.print_tokens(tokens)
 
     expected = ["var", "integer", "=", "50", ";", "comment", "means", "the", "end", "of", "the", "line"]
 
@@ -23,7 +23,7 @@ def test_tokenization_one_line():
 
 def test_tokenization_multi_line():
     tokens = Parser.tokenization(get_multi_line())
-    #Parser.print_tokens(tokens)
+    # Parser.print_tokens(tokens)
 
     expected = ["var", "integer", "=", "50", ";", "comment", "\n",
                 "var", "floating", "=", "3.14", ";", "comment2", "\n",
@@ -37,28 +37,32 @@ def test_get_abstract_syntax_tree_one_line():
     tokens = Parser.tokenization(get_one_line())
     ast = Parser.get_abstract_syntax_tree(tokens)
 
-    line_statement = ast.children[0]
-    assert len(line_statement.children) == 3
-    assert " ".join(line_statement.children[0].tokens) == "var integer"
-    assert " ".join(line_statement.children[1].tokens) == "= 50"
-    assert " ".join(line_statement.children[2].tokens) == "; comment means the end of the line"
+    # print()
+    # print(tokens)
+    # Parser.print_abstract_syntax_tree(ast)
 
-    #print()
-    #Parser.print_abstract_syntax_tree(ast)
+    line_statement = ast.children[0]
+    assert len(line_statement.children) == 5
+    assert line_statement.children[0].token == "var"
+    assert line_statement.children[1].token == "integer"
+    assert line_statement.children[2].token == "="
+    assert line_statement.children[3].token == "50"
+    assert line_statement.children[4].token == "; comment means the end of the line"
 
 
 def test_get_abstract_syntax_tree_multi_line():
     tokens = Parser.tokenization(get_multi_line())
     ast = Parser.get_abstract_syntax_tree(tokens)
 
+    # print()
+    # print(tokens)
+    # Parser.print_abstract_syntax_tree(ast)
+
     # Test count of lines statements
     assert len(ast.children) == 4
 
     # Test count of statements in second line
-    assert len(ast.children[1].children) == 3
+    assert len(ast.children[1].children) == 5
 
     # Test string expression
-    assert ''.join(ast.children[3].children[1].tokens) == "=\"String Constant\""
-
-    print()
-    Parser.print_abstract_syntax_tree(ast)
+    assert ast.children[3].children[3].token == "String Constant"
